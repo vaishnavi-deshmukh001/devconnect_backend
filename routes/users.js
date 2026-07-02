@@ -1,9 +1,10 @@
 // routes/users.js
 const express = require('express');
-const router  = express.Router();
-const { updateProfile, uploadResume, getUserProfile } = require('../controllers/userController');
+const router = express.Router();
 const { protect, authorize } = require('../middleware/auth');
-const { upload } = require('../config/cloudinary');
+const { uploadResume } = require('../controllers/userController');
+const cloudinary = require('../config/cloudinary');
+const upload = cloudinary.upload;
 
 router.put('/profile',  protect, updateProfile);
 router.post('/resume',  protect, authorize('candidate'), upload.single('resume'), uploadResume);
